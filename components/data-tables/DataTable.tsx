@@ -1,7 +1,7 @@
 // components/globals/DataTable/DataTable.tsx
 "use client";
 
-import React, { useMemo } from "react";
+import React, { Suspense, useMemo } from "react";
 import {
   Search,
   FileDown,
@@ -18,7 +18,7 @@ import Link from "next/link";
 import { useDataTableQueryParams } from "@/hooks/useDataTableQueryParams";
 import { DataTableProps } from "./types";
 
-const DataTable = <T extends Record<string, any>>({
+const DataTableContent = <T extends Record<string, any>>({
   data,
   columns,
   searchableKeys = [],
@@ -309,6 +309,18 @@ const DataTable = <T extends Record<string, any>>({
         </div>
       </div>
     </div>
+  );
+};
+
+const DataTable = <T extends Record<string, any>>(props: DataTableProps<T>) => {
+  return (
+    <Suspense
+      fallback={
+        <div className="w-full h-96 bg-slate-50 animate-pulse rounded-md" />
+      }
+    >
+      <DataTableContent {...props} />
+    </Suspense>
   );
 };
 

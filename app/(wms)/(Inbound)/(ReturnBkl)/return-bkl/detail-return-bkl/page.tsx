@@ -4,7 +4,7 @@ import DataTable from "@/components/data-tables/DataTable";
 import CardKeyValueVertical from "@/components/globals/cards/CardKeyValueVertical";
 import ScannerCard from "@/components/globals/additionals/ScannerCard";
 import { Eye, FileText, RotateCcw } from "lucide-react";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 import { InfoDisplay } from "@/components/globals/additionals/Inputs";
 import Modal from "@/components/globals/additionals/Modal";
@@ -202,50 +202,58 @@ export default function DetailReturnBklPage() {
       </section>
 
       <section>
-        <DataTable
-          title="Daftar Item Return BKL"
-          data={tableItems}
-          columns={[
-            {
-              key: "barcode",
-              header: "Barcode",
-              accessor: "barcode",
-            },
-            { key: "name", header: "Nama", accessor: "name" },
-            { key: "qty", header: "Qty", accessor: "qty" },
-            {
-              key: "warehouse_price",
-              header: "Harga Gudang",
-              accessor: (item: any) => formatRupiah(item.warehouse_price),
-            },
-            {
-              key: "sticker",
-              header: "Sticker",
-              accessor: (item: any) => renderStickerBadge(item.sticker),
-            },
-            {
-              key: "date",
-              header: "Tanggal",
-              accessor: (item: any) => item.date || "-",
-            },
-            {
-              key: "user",
-              header: "User",
-              accessor: (item: any) => item.user || "-",
-            },
-          ]}
-          searchableKeys={["barcode", "name", "date", "user"]}
-          actions={{
-            customActions: [
+        <Suspense
+          fallback={
+            <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-500">
+              Memuat tabel...
+            </div>
+          }
+        >
+          <DataTable
+            title="Daftar Item Return BKL"
+            data={tableItems}
+            columns={[
               {
-                label: "Detail",
-                icon: <Eye size={18} />,
-                color: "blue",
-                onClick: (item) => setSelectedItem(item),
+                key: "barcode",
+                header: "Barcode",
+                accessor: "barcode",
               },
-            ],
-          }}
-        />
+              { key: "name", header: "Nama", accessor: "name" },
+              { key: "qty", header: "Qty", accessor: "qty" },
+              {
+                key: "warehouse_price",
+                header: "Harga Gudang",
+                accessor: (item: any) => formatRupiah(item.warehouse_price),
+              },
+              {
+                key: "sticker",
+                header: "Sticker",
+                accessor: (item: any) => renderStickerBadge(item.sticker),
+              },
+              {
+                key: "date",
+                header: "Tanggal",
+                accessor: (item: any) => item.date || "-",
+              },
+              {
+                key: "user",
+                header: "User",
+                accessor: (item: any) => item.user || "-",
+              },
+            ]}
+            searchableKeys={["barcode", "name", "date", "user"]}
+            actions={{
+              customActions: [
+                {
+                  label: "Detail",
+                  icon: <Eye size={18} />,
+                  color: "blue",
+                  onClick: (item) => setSelectedItem(item),
+                },
+              ],
+            }}
+          />
+        </Suspense>
       </section>
 
       <Modal

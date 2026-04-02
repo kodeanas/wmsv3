@@ -5,7 +5,10 @@ import CardKeyValueHorizontal from "@/components/globals/cards/CardKeyValueHoriz
 import Tabs from "@/components/globals/additionals/Tabs";
 import DataTable from "@/components/data-tables/DataTable";
 import Modal from "@/components/globals/additionals/Modal";
-import { InfoDisplay, InputRupiah } from "@/components/globals/additionals/Inputs";
+import {
+  InfoDisplay,
+  InputRupiah,
+} from "@/components/globals/additionals/Inputs";
 import BarcodeModal from "@/components/globals/additionals/BarcodeModal";
 import { useState } from "react";
 import Button from "@/components/globals/buttons/ButtonPrimary";
@@ -304,7 +307,7 @@ export default function DetailProdukPage() {
       </div>
 
       {/* Info Produk */}
-<div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <CardKeyValueHorizontal
           title="Data Barang Asal"
           items={[
@@ -330,7 +333,7 @@ export default function DetailProdukPage() {
           ]}
         />
       </div>
-<section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+      <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
         <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50/30 p-4">
           <div className="flex items-center gap-4">
             <div className="rounded-lg border border-slate-100 bg-white p-2.5 shadow-sm">
@@ -345,16 +348,15 @@ export default function DetailProdukPage() {
                   strokeLinejoin="round"
                   strokeWidth={2}
                   d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
-                queryParamPrefix="history"
-              />
+                />
               </svg>
             </div>
 
             <div>
-              <h3 className="text-sm font-bold text-slate-800">Informasi Barang Reguler</h3>
-              <p className="text-xs text-slate-500">
-                Item di atas Rp 100.000
-              </p>
+              <h3 className="text-sm font-bold text-slate-800">
+                Informasi Barang Reguler
+              </h3>
+              <p className="text-xs text-slate-500">Item di atas Rp 100.000</p>
             </div>
           </div>
 
@@ -392,6 +394,7 @@ export default function DetailProdukPage() {
               content: (
                 <DataTable
                   title="History Perubahan"
+                  queryParamPrefix="history"
                   data={historyData}
                   columns={[
                     {
@@ -448,10 +451,12 @@ export default function DetailProdukPage() {
         onClose={() => setIsBarcodeModalOpen(false)}
         barcode={barangGudang.barcode}
         categoryName={
-          mockCategories.find((c) => c.id === editFormData.selectedCategory)?.name ?? "-"
+          mockCategories.find((c) => c.id === editFormData.selectedCategory)
+            ?.name ?? "-"
         }
         discount={
-          mockCategories.find((c) => c.id === editFormData.selectedCategory)?.discount ?? 0
+          mockCategories.find((c) => c.id === editFormData.selectedCategory)
+            ?.discount ?? 0
         }
         namaBarang={barangAsal.nama}
         hargaRetail={barangAsal.harga}
